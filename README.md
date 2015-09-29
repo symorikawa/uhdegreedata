@@ -3,15 +3,15 @@ Provides seven functions cimputing analytics over the [Hawaii Open Dataset for U
 
 #Installation
 put following scripts into index.html:
-'''
+```
 <script src="//philipmjohnson.github.io/ics314f15/morea/underscore/underscore-min.js"></script>
 <script src="//philipmjohnson.github.io/ics314f15/morea/underscore/uhdata.js"></script>
 <script src="uhdatafunctions.js"></script>
-'''
+```
 
 #Usage
 Here are example calls to the functions
-'''
+```
 <script>
   console.log("Total Degrees", totalDegrees(uhdata));
   console.log("Percentage Hawaiian", percentageHawaiian(uhdata));
@@ -21,7 +21,7 @@ Here are example calls to the functions
   console.log("Max Degrees", maxDegrees(uhdata));
   console.log("Doctoral Degree Programs", doctoralDegreePrograms(uhdata));
 </script>
-'''
+```
 see uhdatafunctions.js for source of functions
 
 #Credits
