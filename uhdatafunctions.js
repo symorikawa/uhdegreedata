@@ -19,6 +19,12 @@ var testdata = uhdata.slice(0,3);
  * @returns sum of all awarded degrees
  */
 function totalDegrees(data){
+  if(!data[0]["AWARDS"]){
+    throw new Error("Object AWARDS field is missing");
+  }
+  if(data[0]["AWARDS"]%1!==0){
+    throw new Error("Object AWARDS field is not an integer");
+  }
   return _.reduce(_.filter(data, "AWARDS"), addDegrees, 0);
 }
 
@@ -28,10 +34,14 @@ function totalDegrees(data){
  * @param record the particular entry
  * @returns the total awarded degrees from the given list
  */
+var noAward={name: "testData"};
+var stringAward={AWARD: "hello"};
 function addDegrees(memo, record){
+
   return memo+=record["AWARDS"];
 }
-
+console.log(totalDegrees(noAward));
+console.log(totalDegrees(stringAward));
 /**
  * returns the percentage of degrees awarded to HAWAIIAN_LEGACY vs total degrees awarded
  * @param data the dataset
