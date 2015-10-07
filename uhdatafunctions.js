@@ -12,36 +12,43 @@ listCampusDegrees, doctoralDegreePrograms */
  * @type {Array.<T>|string|Blob|ArrayBuffer}
  */
 var testdata = uhdata.slice(0,3);
-
+var noAward=[{name: "testData"}];
+var stringAward=[{AWARDS: "hello"}];
 /**
  * a function to calculate the total number of degrees awarded by UH Campuses
  * @param data the dataset
  * @returns sum of all awarded degrees
  */
-function totalDegrees(data){
-  if(!data[0]["AWARDS"]){
+function totalDegrees(data) {
+  if (!_.every(data, hasAward)) {
     throw new Error("Object AWARDS field is missing");
-  }
-  if(data[0]["AWARDS"]%1!==0){
-    throw new Error("Object AWARDS field is not an integer");
   }
   return _.reduce(_.filter(data, "AWARDS"), addDegrees, 0);
 }
-
+/**
+ * helper function to determine if a record contains a AWARDS field
+ * @param record Record to examine
+ * @returns {boolean} True if has a AWARDS field
+ */
+function hasAward(record){
+  return record.hasOwnProperty("AWARDS");
+}
+console.log(totalDegrees(noAward));
+console.log(totalDegrees(stringAward));
+console.log(totalDegrees(uhdata));
 /**
  * helper function to add add all degrees in a list
  * @param memo the memory to hold the return value
  * @param record the particular entry
  * @returns the total awarded degrees from the given list
  */
-var noAward={name: "testData"};
-var stringAward={AWARD: "hello"};
 function addDegrees(memo, record){
-
+  if(isNaN(record["AWARDS"])){
+    throw new Error("Object AWARDS field is not an integer");
+  }
   return memo+=record["AWARDS"];
 }
-console.log(totalDegrees(noAward));
-console.log(totalDegrees(stringAward));
+
 /**
  * returns the percentage of degrees awarded to HAWAIIAN_LEGACY vs total degrees awarded
  * @param data the dataset
